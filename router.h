@@ -6,13 +6,14 @@
 
 struct RoutingEntry {
 public:
-  Address destination;
-  Link *nextLink;
+    Address destination;
+    Link *nextLink;
+    RoutingEntry(Address destination_, Link* nextLink_) : destination(destination_), nextLink(nextLink_) {}
 };
 
 class Router : public Node {
 protected:
-  std::vector<RoutingEntry> routingTable_;
+    std::vector<RoutingEntry> routingTable_;
 };
 
-#endif
+#endif 

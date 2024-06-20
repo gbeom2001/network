@@ -4,11 +4,12 @@
 #include "host.h"
 #include "service.h"
 
-// 서비스를 설치하는 역할
 class ServiceInstaller {
 protected:
-  // 호스트와 서비스 사이의 관계를 설정한다.
-  void install(Host *host, Service *service);
+    void install(Host *host, Service *service) {
+        service->host_ = host;
+        host->addService(service);
+    }
 };
 
-#endif
+#endif 

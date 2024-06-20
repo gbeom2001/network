@@ -53,7 +53,7 @@ int main() {
   routers[2]->addRoutingEntry(messageClient->address(), links[4]);
 
   routers[3]->addRoutingEntry(echoServer->address(), links[3]);
-  routers[3]->addRoutingEntry(echoServer->address(), links[4]);
+  routers[3]->addRoutingEntry(echoServer->address(), links[4]);   
   routers[3]->addRoutingEntry(messageClient->address(), links[5]);
 
   // 토폴로지는 다음 그림과 같다:

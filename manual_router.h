@@ -5,10 +5,29 @@
 #include "router.h"
 
 class ManualRouter : public Router {
-
 public:
-  // 목적지 주소에 따른 다음 링크를 설정한다.
-  void addRoutingEntry(const Address &destination, Link *nextLink);
+    void addRoutingEntry(const Address &destination, Link *nextLink) {
+        routingTable_.emplace_back(destination, nextLink);
+    }
+
+    void receivePacket(Packet *packet) override {
+        std::cout << "Router #" << std::to_string(id()) << ": forwarding packet (from: "
+                  << packet->srcAddress().toString() << ", to: "
+                  << packet->destAddress().toString() << ", " 
+                  << packet->dataString().size() << " bytes)" << std::endl;
+
+        for (const auto& entry : routingTable_) {
+            if (entry.destination == packet->destAddress()) {
+                entry.nextLink->transmitPacket(packet, this);
+                return;
+            }
+        }
+
+        std::cout << "Router #" << std::to_string(id()) << ": no route for packet (from: "
+                  << packet->srcAddress().toString() << ", to: "
+                  << packet->destAddress().toString() << ", "
+                  << packet->dataString().size() << " bytes)" << std::endl;
+    }
 };
 
-#endif
+#endif 

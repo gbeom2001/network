@@ -1,21 +1,19 @@
-#ifndef SERVICE_H
-#define SERVICE_H
+#ifndef ROUTER_H
+#define ROUTER_H
 
 #include "node.h"
+#include <iostream>
 
-class Host;
-
-class Service {
-  friend class ServiceInstaller;
-
-protected:
-  // 서비스가 설치된 호스트
-  Host *host_;
-
-  // 서비스가 사용하는 포트
-  short port_;
-
-  Service(Host *host, int port) : host_(host), port_(port) {}
+struct RoutingEntry {
+public:
+    Address destination;
+    Link *nextLink;
+    RoutingEntry(Address destination_, Link* nextLink_) : destination(destination_), nextLink(nextLink_) {}
 };
 
-#endif
+class Router : public Node {
+protected:
+    std::vector<RoutingEntry> routingTable_;
+};
+
+#endif 
